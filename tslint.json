@@ -1,0 +1,60 @@
+{
+    "extends": "tslint-config-standard",
+    "globals": {
+        "require": true
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "rulesDirectory": [
+        "src/",
+        "test/"
+    ],
+    "rules": {
+        "max-line-length": {
+            "options": [
+                120
+            ]
+        },
+        "object-curly-spacing": [
+            "error",
+            "never"
+        ],
+        "indent": [
+            true,
+            "spaces",
+            4
+        ],
+        "no-consecutive-blank-lines": false,
+        "ter-indent": [
+            true,
+            4,
+            {
+                "FunctionExpression": {
+                    "parameters": 4,
+                    "body": 4
+                }
+            }
+        ],
+        "space-before-function-paren": [
+            false
+        ],
+        "no-unused-expression": [
+            true,
+            "allow-fast-null-checks"
+        ]
+    },
+    "linterOptions": {
+        "exclude": [
+            "node_modules"
+        ]
+    },
+    "cliOptions": {
+        "exclude": [
+            "bin",
+            "build",
+            "node_modules"
+        ]
+    }
+}
