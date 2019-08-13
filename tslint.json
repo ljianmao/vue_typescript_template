@@ -32,8 +32,8 @@
             4,
             {
                 "FunctionExpression": {
-                    "parameters": 4,
-                    "body": 4
+                    "parameters": 1,
+                    "body": 1
                 }
             }
         ],
@@ -56,5 +56,37 @@
             "build",
             "node_modules"
         ]
-    }
+    },
+    "strict-type-predicates": true,
+    "semicolon": [
+        true,
+        "never",
+        "ignore-interfaces"
+    ],
+    "trailing-comma": [
+        false,
+        {
+            "multiline": {
+                "objects": "always",
+                "arrays": "always",
+                "functions": "never",
+                "typeLiterals": "ignore"
+            },
+            "singleline": {
+                "objects": "always",
+                "arrays": "ignore",
+                "functions": "never",
+                "typeLiterals": "ignore"
+            },
+            "esSpecCompliant": false
+        }
+    ],
+    "comma-dangle": [
+        2,
+        "never"
+    ],
+    "object-curly-spacing": [
+        "error",
+        "always"
+    ]
 }

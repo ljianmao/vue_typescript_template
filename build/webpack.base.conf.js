@@ -3,6 +3,9 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin')
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
@@ -22,23 +25,23 @@ const createLintingRule = () => ({
 
 module.exports = {
     context: path.resolve(__dirname, '../'),
-    entry: {
-        app: './src/main.ts'
-    },
-    output: {
-        path: config.build.assetsRoot,
-        filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production'
-            ? config.build.assetsPublicPath
-            : config.dev.assetsPublicPath
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.vue', '.json'],
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src'),
-        }
-    },
+    // entry: {
+    //     app: './src/main.ts'
+    // },
+    // output: {
+    //     path: config.build.assetsRoot,
+    //     filename: '[name].js',
+    //     publicPath: process.env.NODE_ENV === 'production'
+    //         ? config.build.assetsPublicPath
+    //         : config.dev.assetsPublicPath
+    // },
+    // resolve: {
+    //     extensions: ['.tsx', '.ts', '.js', '.vue', '.json'],
+    //     alias: {
+    //         'vue$': 'vue/dist/vue.esm.js',
+    //         '@': resolve('src'),
+    //     }
+    // },
     module: {
         rules: [
             ...(config.dev.useEslint ? [createLintingRule()] : []),
@@ -51,7 +54,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+                include: [resolve('src'), resolve('packages'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
             },
             // {
             //     test: /\.ts$/,
@@ -67,6 +70,23 @@ module.exports = {
                 options: {
                     appendTsSuffixTo: [/\.vue$/],
                 }
+            },
+            {
+                test: /(\.scss$)|(\.css$)/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // you can specify a publicPath here
+                            // by default it uses publicPath in webpackOptions.output
+                            publicPath: '../',
+                            hmr: process.env.NODE_ENV === 'development',
+                        },
+                    },
+                    'css-loader',
+                ],
+                include: path.resolve(__dirname, 'packages', 'src', 'test')
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -105,5 +125,13 @@ module.exports = {
         net: 'empty',
         tls: 'empty',
         child_process: 'empty'
+    },
+    optimization: {
+
+        minimizer: [
+            new TerserWebpackPlugin({
+            }),
+        ],
+
     }
 }

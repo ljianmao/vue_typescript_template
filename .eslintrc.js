@@ -3,7 +3,10 @@
 module.exports = {
     root: true,
     parserOptions: {
-        parser: 'babel-eslint'
+        parser: 'babel-eslint',
+        "ecmaFeatures": {
+            "legacyDecorators": true
+        }
     },
     env: {
         browser: true,
@@ -33,6 +36,31 @@ module.exports = {
             "named": "never",
             "asyncArrow": "always"
         }],
-        "object-curly-spacing": ["error", "never"]
+        "object-curly-spacing": ["error", "never"],
+        // "strict-type-predicates": false,
+        // "semicolon": [true, "always"],
+        // "trailing-comma": [
+        //     "error",
+        //     {
+        //         "multiline": {
+        //             "objects": "never",
+        //             "arrays": "ignore",
+        //             "functions": "never",
+        //             "typeLiterals": "ignore"
+        //         },
+        //         "singleline": {
+        //             "objects": "never",
+        //             "arrays": "ignore",
+        //             "functions": "never",
+        //             "typeLiterals": "ignore"
+        //         },
+        //         "esSpecCompliant": false
+        //     }
+        // ],
+        "comma-dangle": [2, "never"],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ]
     }
 }
